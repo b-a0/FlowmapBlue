@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  flowmap:
+    container_name: flowmap
+    build:
+      context: "."
+      dockerfile: "./docker/Dockerfile"
+      args:
+        MAPBOX_TOKEN: $NEXT_PUBLIC_MapboxAccessToken
+        MAPBOX_LIGHT: "mapbox://styles/mapbox/light-v11"
+        MAPBOX_DARK: "mapbox://styles/mapbox/dark-v11"
+    image: flowmap:latest
+    environment:
+      - TZ=Europe/Amsterdam
+      - NETWORK_ACCESS=internal
+      - VIRTUAL_HOST=flowmap.sums01.hex.tno.nl
+      - VIRTUAL_PORT=3000
+      - HTTPS_METHOD=nohttps
+    restart: always
+    networks:
+      - revprox
+
+networks:
+  revprox:
+    name: revprox
+    external: true
