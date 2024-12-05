@@ -129,6 +129,7 @@ import {findAppropriateZoomLevel} from '@flowmap.gl/cluster';
 import {useRouter} from 'next/router';
 import {SPREADSHEET_KEY_RE, getFlowsSheetKey, makeGSheetsMapUrl} from '../components/constants';
 import {useMeasure} from 'react-use';
+import {DEFAULT_MAPBOX_ACCESS_TOKEN} from './config';
 
 const CONTROLLER_OPTIONS = {
   type: MapController,
@@ -241,7 +242,7 @@ const StyledFlowmapCityLink = styled.a<{darkMode: boolean}>(
 function getFlowmapCityUrl() {
   const m = new RegExp(`^\/(${SPREADSHEET_KEY_RE})`).exec(location.pathname);
   if (m && m.length > 0) {
-    return `https://app.flowmap.city/import/FlowmapBlue/${m[1]}?${location.search}`;
+    return `https://app.flowmap.city/import/FlowmapBlue/${m[1]}${location.search}`;
   }
 }
 
